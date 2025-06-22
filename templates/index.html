@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mobile Number Checker</title>
+  </head>
+  <body>
+    <h2>Check Mobile Number Vulnerability</h2>
+    <input type="text" id="number" placeholder="+919876543210" />
+    <span id="error" style="color: red;"></span>
+    <button onclick="checkNumber()">Check</button>
+    <pre id="result"></pre>
+
+<script src="/static/script.js"></script>
+    <script>
+  function checkNumber() {
+    const number = document.getElementById("number").value;
+    const error = document.getElementById("error");
+    error.textContent = "";
+
+    if (!number.startsWith("+") || number.length < 10) {
+      error.textContent = "Please enter a valid international number.";
+      return;
+    }
+
+    fetch("/check-number", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ number }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+    });
+  }
+</script>
+  </body>
+</html>

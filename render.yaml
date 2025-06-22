@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: mobile-sec-checker
+    env: python
+    buildCommand: ""
+    startCommand: "python run.py"
+    plan: free
